@@ -69,7 +69,7 @@ requirements.txt: Lists the Python dependencies required for the backend, which 
 5. **Run the backend server:**
    The backend is powered by FastAPI. To start the server, use the following command:
    ```bash
-   uvicorn backend.main:app --reload
+   uvicorn backend.main:app --reload --port 8000
    ```
 
 6. **Run the frontend:**

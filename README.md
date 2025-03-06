@@ -46,18 +46,33 @@ requirements.txt: Lists the Python dependencies required for the backend, which 
    cd yourrepository
    ```
 
-2. **Install the required dependencies:**
+2. **Create a virtual environment:**
+   ```bash
+   python -m venv venv
+   ```
+
+3. **Activate the virtual environment:**
+   - On Windows:
+     ```bash
+     venv\Scripts\activate
+     ```
+   - On macOS and Linux:
+     ```bash
+     source venv/bin/activate
+     ```
+
+4. **Install the required dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Run the backend server:**
+5. **Run the backend server:**
    The backend is powered by FastAPI. To start the server, use the following command:
    ```bash
    uvicorn backend.main:app --reload
    ```
 
-4. **Run the frontend:**
+6. **Run the frontend:**
    Navigate to the `frontend` directory and start the React application:
    ```bash
    cd frontend

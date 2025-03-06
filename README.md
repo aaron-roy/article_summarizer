@@ -42,8 +42,8 @@ requirements.txt: Lists the Python dependencies required for the backend, which 
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/yourrepository.git
-   cd yourrepository
+   git clone git@github.com:aaron-roy/article_summarizer.git
+   cd article_summarizer
    ```
 
 2. **Create a virtual environment:**

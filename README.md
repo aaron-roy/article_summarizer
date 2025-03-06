@@ -48,7 +48,7 @@ requirements.txt: Lists the Python dependencies required for the backend, which 
 2. **Create a virtual environment for backend directory:**
    ```bash
    cd backend
-   python -m venv venv
+   python3 -m venv venv
    ```
 
 3. **Activate the virtual environment:**

@@ -241,14 +241,12 @@ function FileProcessor() {
 
       {fileId && status === 'completed' && (
         <div className="mt-8">
-          <h2 className="text-xl font-bold mb-4">Ask Questions About Your Data</h2>
           <ArticleCarousel/>
         </div>
       )}
       
       {fileId && status === 'completed' && (
         <div className="mt-8">
-          <h2 className="text-xl font-bold mb-4">Ask Questions About Your Data</h2>
           <ChatAssistant fileId={fileId} />
         </div>
       )}

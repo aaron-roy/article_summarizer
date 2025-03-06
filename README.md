@@ -2,6 +2,7 @@
 
 This application processes CSV and Excel files to generate article summaries and tags using OpenAI's API. It also provides a chat interface for querying the processed data.
 
+```
 yourrepository/
 ├── backend/
 │   ├── main.py
@@ -22,6 +23,7 @@ yourrepository/
 ├── .env
 ├── requirements.txt
 └── README.md
+```
 
 Explanation of Important Files
 - backend/main.py: This is the main entry point for the backend server. It initializes the FastAPI application and defines the API endpoints for file processing, status checking, downloading processed files, retrieving articles, and invoking the chat agent.

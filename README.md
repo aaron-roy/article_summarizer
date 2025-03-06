@@ -20,7 +20,6 @@ yourrepository/
 │   │   └── App.jsx
 │   ├── public/
 │   └── ...
-├── .env
 ├── requirements.txt
 └── README.md
 ```
@@ -46,8 +45,9 @@ requirements.txt: Lists the Python dependencies required for the backend, which 
    cd article_summarizer
    ```
 
-2. **Create a virtual environment:**
+2. **Create a virtual environment for backend directory:**
    ```bash
+   cd backend
    python -m venv venv
    ```
 

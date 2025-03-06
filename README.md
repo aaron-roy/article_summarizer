@@ -2,6 +2,10 @@
 
 This application processes CSV and Excel files to generate article summaries and tags using OpenAI's API. It also provides a chat interface for querying the processed data.
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d37ce336-d5e2-4c28-b657-f974bb47a136" alt="Centered Image">
+</p>
+
 ```
 yourrepository/
 ├── backend/

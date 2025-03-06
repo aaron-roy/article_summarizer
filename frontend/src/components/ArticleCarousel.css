@@ -1,0 +1,134 @@
+.carousel-container {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+  }
+  
+  .carousel-slide {
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .carousel-button {
+    background-color: #4a4a4a;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    z-index: 10;
+    transition: background-color 0.3s;
+  }
+  
+  .carousel-button:hover {
+    background-color: #333333;
+  }
+  
+  .carousel-button.prev {
+    left: -20px;
+  }
+  
+  .carousel-button.next {
+    right: -20px;
+  }
+  
+  .carousel-indicators {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: -30px;
+    width: 100%;
+  }
+  
+  .indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #ddd;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .indicator.active {
+    background-color: #4a4a4a;
+  }
+  
+  .article-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    transition: transform 0.3s, box-shadow 0.3s;
+    margin: 10px;
+  }
+  
+  .article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.15);
+  }
+  
+  .article-header {
+    margin-bottom: 15px;
+  }
+  
+  .article-header h2 {
+    margin: 0 0 5px 0;
+    color: #333;
+  }
+  
+  .author {
+    color: #777;
+    font-style: italic;
+    margin: 0;
+  }
+  
+  .article-body {
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  
+  .article-metrics {
+    display: flex;
+    margin-bottom: 15px;
+  }
+  
+  .article-metrics span {
+    margin-right: 15px;
+    color: #666;
+  }
+  
+  .article-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .tag {
+    background-color: #f0f0f0;
+    color: #444;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8em;
+  }
+  
+  .loading, .error {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+  }
+  
+  .error {
+    color: #d9534f;
+  }

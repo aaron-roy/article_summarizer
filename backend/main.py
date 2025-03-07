@@ -12,7 +12,7 @@ import sqlite3
 from contextlib import asynccontextmanager
 from models import Article, AgentRequest
 from fastapi.middleware.cors import CORSMiddleware
-from util import process_file, clear_temp_dir, agent_executor, create_db_connection, close_db_connection
+from util import process_file, clear_temp_dir, create_agent, create_db
 from typing import List
 
 # Load environment variables from .env file
@@ -28,17 +28,21 @@ async def lifespan(app: FastAPI):
     logger.info("Application started")
     logger.info(f"OpenAI API key {'is set' if openai.api_key else 'is NOT set'}")
     
-    # Create database connection
-    db_connection = create_db_connection()
+    # Create database with tables and store connection in app state
+    app.state.db_connection = create_db()
+    # Create agent
+    app.state.agent_executor = create_agent(app.state.db_connection)
     
-    yield   # Pass the connection to the app
+    yield
     
-    # Shutdown
-    close_db_connection(db_connection)
+    # Shutdown - directly close the connection
+    if app.state.db_connection:
+        app.state.db_connection.close()
+        
+    # Remove the database file
     if os.path.exists("mydatabase.db"):
         os.remove("mydatabase.db")
         logger.info("Database removed")
-
 
 # Initialize FastAPI app
 app = FastAPI(title="Article Processing API", lifespan=lifespan)
@@ -86,7 +90,7 @@ async def upload_file(
     
     try:
         # Process the file asynchronously 
-        background_tasks.add_task(process_file, temp_file_path)  
+        background_tasks.add_task(process_file, temp_file_path, app.state.db_connection)  
         
         
         return {
@@ -200,7 +204,7 @@ async def invoke_agent(request: AgentRequest):
     Returns:
         dict: The response from the agent
     """
-    response = agent_executor.invoke({"input": request.input_query})
+    response = app.state.agent_executor.invoke({"input": request.input_query})
     return {"response": response}
 
 @app.get("/articles/", response_model=List[Article])
@@ -211,7 +215,7 @@ async def get_articles():
     Returns:
         List[Article]: A list of all articles with their tags
     """
-    conn = sqlite3.connect("mydatabase.db")
+    conn = app.state.db_connection
     cursor = conn.cursor()
     # Get all articles
     cursor.execute("""

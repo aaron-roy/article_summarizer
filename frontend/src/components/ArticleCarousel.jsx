@@ -92,7 +92,6 @@ const ArticleCarousel = () => {
         ))}
       </div>
 
-
     </div>
   );
 };

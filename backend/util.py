@@ -12,15 +12,7 @@ from langchain_community.utilities import SQLDatabase
 
 import sqlite3
 
-def create_db_connection():
-    """Create a database connection."""
-    conn = sqlite3.connect("mydatabase.db")
-    return conn
 
-def close_db_connection(conn):
-    """Close the database connection."""
-    if conn:
-        conn.close()
 
 
 # Load environment variables from .env file
@@ -40,11 +32,8 @@ if not openai.api_key:
 # Create a connection to the SQLite database
 def create_db():
     # First ensure any existing connection is closed
-    global db_connection
-    if 'db_connection' in globals() and db_connection:
-        db_connection.close()
-    
-    # Then remove any existing database file
+    """Create database and tables."""
+    # Cleanup code is still helpful for robustness
     if os.path.exists("mydatabase.db"):
         os.remove("mydatabase.db")
     
@@ -83,17 +72,20 @@ def create_db():
     conn.commit()
     return conn
 
-# Initialize the database connection and create tables
-db_connection = create_db()
 
-# Create SQLDatabase instance for LangChain
-db = SQLDatabase.from_uri("sqlite:///mydatabase.db")
+def create_agent(db_connection):
+    """Create and initialize the LangChain SQL agent with the given database connection."""
+    # Create SQLDatabase instance for LangChain
+    db = SQLDatabase.from_uri("sqlite:///mydatabase.db")
+    
+    # Initialize the chat model
+    llm = init_chat_model("gpt-4o-mini", model_provider="openai")
+    
+    # Create SQL agent with SQLDatabase instance
+    agent = create_sql_agent(llm, db=db, agent_type="openai-tools", verbose=True)
+    
+    return agent
 
-# Initialize the chat model
-llm = init_chat_model("gpt-4o-mini", model_provider="openai")
-
-# Create SQL agent with SQLDatabase instance
-agent_executor = create_sql_agent(llm, db=db, agent_type="openai-tools", verbose=True)
 
 async def summarize_article(content: str) -> tuple[str, List[str]]:
     """
@@ -138,7 +130,7 @@ async def summarize_article(content: str) -> tuple[str, List[str]]:
         logger.error(f"Error calling OpenAI API: {str(e)}")
         return "Failed to generate summary.", ["error"]
 
-async def process_file(file_path: str) -> str:
+async def process_file(file_path: str, db_connection) -> str:
     """
     Process each article in the file (CSV or Excel) and add summary and tags columns.
     
